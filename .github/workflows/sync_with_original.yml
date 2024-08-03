@@ -1,0 +1,54 @@
+name: Sync and Modify Extension
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Run weekly on Sunday at midnight
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  sync-and-modify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Sync with upstream
+        run: |
+          git remote add upstream https://github.com/original/repo.git
+          git fetch upstream
+          git checkout main
+          git merge upstream/main
+          git push origin main
+
+      - name: Merge main into custom-view branch
+        run: |
+          git checkout custom-view
+          git merge main
+
+      - name: Modify package.json
+        run: node modify-package-json.js
+
+      - name: Commit and push changes
+        run: |
+          git add package.json
+          git commit -m "Update package.json with custom view container"
+          git push origin custom-view
+
+      - name: Run tests
+        run: npm test
+
+      - name: Notify for review
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          text: 'Custom branch updated and ready for review'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
