@@ -19,12 +19,29 @@ class TreeviewPanel {
 	#dataProvider;
 	tree;
 
-	constructor(context) {
+	// commented for modification
+	// constructor(context) {
+	// 	this.#debugMode = context.extensionMode === vscode.ExtensionMode.Development;
+	// 	this.#dataProvider = new DataProvider(this);
+	// 	this.#registerEvents();
+	// 	this.recreateTree(true);
+	// }
+
+	constructor(context, viewId) {
+		this.viewId = viewId;
 		this.#debugMode = context.extensionMode === vscode.ExtensionMode.Development;
 		this.#dataProvider = new DataProvider(this);
 		this.#registerEvents();
 		this.recreateTree(true);
 	}
+
+	getChildren(element) {
+        return this.#dataProvider.getChildren(element);
+    }
+
+    getTreeItem(element) {
+        return this.#dataProvider.getTreeItem(element);
+    }
 
 	#registerEvents() {
 		vscode.workspace.onDidChangeConfiguration((item) => {
@@ -155,9 +172,14 @@ class TreeviewPanel {
 		});
 		
 		if (initial) {
-			this.#treeview = vscode.window.createTreeView('betterOpenEditors', {
+			// added for standalone view
+			this.#treeview = vscode.window.createTreeView(this.viewId, {
 				treeDataProvider: this.#dataProvider
 			});
+			
+			// this.#treeview = vscode.window.createTreeView('betterOpenEditors', {
+			// 	treeDataProvider: this.#dataProvider
+			// });
 
 			this.#treeview.onDidChangeVisibility((e) => {
 				this.#log('> this.#treeview.onDidChangeVisibility');

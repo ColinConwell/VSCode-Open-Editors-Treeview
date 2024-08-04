@@ -1,11 +1,24 @@
 const vscode		= require('vscode');
-const helper        = require ('./helpers');
+const helper        = require ('./helpers.js');
 const TreeviewPanel	= require('./treeviewPanel');
 const QuickPick		= require('./QuickPick.js');
 
+
 function activate(context) {
-	const treeviewPanel = new TreeviewPanel(context);
-	const quickPick = new QuickPick(context, treeviewPanel);
+	// commented out for standalone view:
+	//const treeviewPanel = new TreeviewPanel(context);
+	//const quickPick = new QuickPick(context, treeviewPanel);
+
+	console.log('Better Open Editors is being activated...');
+
+	// added for standalone view:
+	const betterOpenEditorsProvider = new TreeviewPanel(context, 'betterOpenEditors');
+	const betterOpenEditorsStandaloneProvider = new TreeviewPanel(context, 'betterOpenEditorsStandalone');
+
+	context.subscriptions.push(
+        vscode.window.registerTreeDataProvider('betterOpenEditors', betterOpenEditorsProvider),
+        vscode.window.registerTreeDataProvider('betterOpenEditorsStandalone', betterOpenEditorsStandaloneProvider)
+    );
 
 	vscode.commands.registerCommand('betterOpenEditors.openExtensionSettings', () => {
 		vscode.commands.executeCommand('workbench.action.openSettings', '@ext:McSodbrenner.better-open-editors');
@@ -16,7 +29,12 @@ function activate(context) {
 	});
 
 	vscode.commands.registerCommand('betterOpenEditors.refreshTree', () => {
-		treeviewPanel.recreateTree();
+		// commented for standalone view:
+		// treeviewPanel.recreateTree();
+
+		// added for standalone view:
+		betterOpenEditorsProvider.recreateTree();
+    	betterOpenEditorsStandaloneProvider.recreateTree();
 	});
 
 	vscode.commands.registerCommand('betterOpenEditors.showTab', (input, tabGroupIndex) => {

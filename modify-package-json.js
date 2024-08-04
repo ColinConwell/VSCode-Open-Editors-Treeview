@@ -24,15 +24,15 @@ if (!packageJson.contributes.viewsContainers.activitybar) {
 
 // Check if our custom container already exists
 const containerExists = packageJson.contributes.viewsContainers.activitybar.some(
-    container => container.id === 'betterOpenEditorsContainer'
+    container => container.id === 'betterOpenEditors'
 );
 
 // If the container doesn't exist, add it
 if (!containerExists) {
     packageJson.contributes.viewsContainers.activitybar.push({
-        id: 'betterOpenEditorsContainer',
-        title: 'Better Open Editors',
-        icon: 'meta/icon.png'
+        id: 'betterOpenEditors',
+        title: 'Treeview Open Editors',
+        icon: "$(vm-outline)"
     });
 }
 
@@ -42,11 +42,11 @@ if (!packageJson.contributes.views) {
 }
 
 // Check if our custom view already exists
-if (!packageJson.contributes.views.betterOpenEditorsContainer) {
-    packageJson.contributes.views.betterOpenEditorsContainer = [
+if (!packageJson.contributes.views.betterOpenEditors) {
+    packageJson.contributes.views.betterOpenEditors = [
         {
             id: 'betterOpenEditors',
-            name: 'Better Open Editors'
+            name: 'Open Editors (Treeview)'
         }
     ];
 }

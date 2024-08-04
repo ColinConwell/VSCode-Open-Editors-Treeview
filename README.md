@@ -1,4 +1,12 @@
-# Better Open Editors
+# (Treeview) Better Open Editors
+
+A minimal modification of the [Better Open Editors extension](https://github.com/McSodbrenner/vscode-better-open-editors) to add an Open Editors Treeview to the sidebar (in addition to the view added to the "Explorer" sidebar).
+
+This modification is currently "functional", but needs a fix for the following error:
+
+```log
+Error: Cannot resolve tree item for element 1/undefined-/ from extension McSodbrenner.treeview-open-editors
+```
 
 This is a replacement for the Open Editors panel, which becomes very cluttered with many open files. Especially in projects with package folders (e.g. in monorepos) you often have many files with the same name open and have difficulties to distinguish them.
 
