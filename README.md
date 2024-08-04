@@ -1,5 +1,7 @@
 # Better Open Editors
 
+(A minimal modification of the [Better Open Editors extension](https://github.com/McSodbrenner/vscode-better-open-editors) to move the view from the Explorers sidebar to a standalone sidebar entry called *Treeview Open Editors*).
+
 This is a replacement for the Open Editors panel, which becomes very cluttered with many open files. Especially in projects with package folders (e.g. in monorepos) you often have many files with the same name open and have difficulties to distinguish them.
 
 Therefore, this extension helps to group open files in package folders (defined by package.json or composer.json) or in folders defined by setting.
