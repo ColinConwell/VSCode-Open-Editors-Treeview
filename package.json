@@ -98,7 +98,7 @@
 				{
 					"id": "betterOpenEditorsStandalone",
 					"title": "Treeview Open Editors",
-					"icon": "$(vm-outline)"
+					"icon": "$(group-by-ref-type)"
 				}
 			]
 		},
