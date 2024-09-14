@@ -1,6 +1,6 @@
 {
   "name": "better-open-editors-treeview",
-  "displayName": "Better Open Editors (TreeView)",
+  "displayName": "Open Editors (TreeView)",
   "description": "Groups open editors by package folders.",
   "keywords": [
     "editors",
@@ -106,7 +106,7 @@
       "betterOpenEditorsContainer": [
         {
           "id": "betterOpenEditors",
-          "name": "Better Open Editors"
+          "name": "Open Editors (Treeview)"
         }
       ]
     },
